@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5001/habitdb
+    username: habit
+    password: habit
+  liquibase:
+    change-log: classpath:db/database_statement_changelog.xml
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
