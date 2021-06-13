@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5001/habitdb
-    username: habit
-    password: habit
+    url: jdbc:postgresql://localhost:5002/authdb
+    username: auth
+    password: auth
   liquibase:
     change-log: classpath:db/database_changelog.xml
   jpa:
@@ -10,4 +10,4 @@ spring:
       ddl-auto: update
     show-sql: true
 server:
-  port: 8081
+  port: 8082
