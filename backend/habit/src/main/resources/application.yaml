@@ -1,6 +1,9 @@
+habit:
+  property:
+    delimiter: _
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5001/habitdb
+    url: jdbc:postgresql://habit_db:5432/habitdb
     username: habit
     password: habit
   liquibase:

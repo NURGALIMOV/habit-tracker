@@ -6,6 +6,7 @@ import ru.inurgalimov.habit.dto.enums.NotificationType;
 
 import javax.persistence.*;
 import java.time.LocalTime;
+import java.util.UUID;
 
 @Entity(name = "Notification")
 @Data
@@ -23,5 +24,8 @@ public class NotificationEntity extends BaseEntity {
     private HabitEntity habit;
 
     private String email;
+
+    @Column(nullable = false, updatable = false)
+    private UUID userId;
 
 }

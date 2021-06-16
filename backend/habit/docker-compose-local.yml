@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+  habit:
+    networks:
+      - habit-tracker-backend
+    container_name: habit
+    image: habit
+    build: .
+    ports:
+      - 8081:8081
+    depends_on:
+      - habit_db
+  habit_db:
+    container_name: habit-db
+    image: postgres
+    restart: on-failure
+    networks:
+      - habit-tracker-backend
+    ports:
+      - 5001:5432
+    environment:
+      POSTGRES_DB: habitdb
+      POSTGRES_USER: habit
+      POSTGRES_PASSWORD: habit
+networks:
+  habit-tracker-backend:
+    name: habit-tracker-backend

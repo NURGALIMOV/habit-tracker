@@ -7,6 +7,7 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
 @Entity(name = "habit")
 @Data
@@ -31,5 +32,8 @@ public class HabitEntity extends BaseEntity {
     @OneToMany(mappedBy = "habit", fetch = FetchType.EAGER)
     @Fetch(FetchMode.SUBSELECT)
     private List<ProgressEntity> progress;
+
+    @Column(nullable = false, updatable = false)
+    private UUID userId;
 
 }

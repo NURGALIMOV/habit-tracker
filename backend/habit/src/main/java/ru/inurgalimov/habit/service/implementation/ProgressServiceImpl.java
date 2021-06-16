@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.inurgalimov.habit.dto.Progress;
 import ru.inurgalimov.habit.mapper.ProgressMapper;
 import ru.inurgalimov.habit.repository.ProgressRepository;
+import ru.inurgalimov.habit.service.HabitService;
 import ru.inurgalimov.habit.service.ProgressService;
 
 import java.util.UUID;

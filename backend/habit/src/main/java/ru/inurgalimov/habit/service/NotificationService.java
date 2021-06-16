@@ -6,10 +6,10 @@ import java.util.UUID;
 
 public interface NotificationService {
 
-    UUID create(Notification notification);
+    UUID create(Notification notification, UUID userId);
 
-    Notification update(Notification notification);
+    Notification update(Notification notification, UUID userId);
 
-    void delete(UUID notificationId);
+    void delete(UUID notificationId, UUID userId);
 
 }

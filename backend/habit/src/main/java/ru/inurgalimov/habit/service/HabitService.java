@@ -9,12 +9,12 @@ public interface HabitService {
 
     List<Habit> getAllHabits(UUID userId);
 
-    Habit getHabit(UUID uuid);
+    Habit getHabit(UUID uuid, UUID userId);
 
-    UUID createHabit(Habit habit);
+    UUID createHabit(Habit habit, UUID userId);
 
-    void update(Habit habit);
+    void update(Habit habit, UUID userId);
 
-    void delete(UUID uuid);
+    void delete(UUID uuid, UUID userId);
 
 }

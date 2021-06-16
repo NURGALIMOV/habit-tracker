@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  gateway:
+    networks:
+      - habit-tracker-backend
+    image: gateway
+    container_name: gateway
+    build: .
+    ports:
+      - 8080:80
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+networks:
+  habit-tracker-backend:
+    name: habit-tracker-backend

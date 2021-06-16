@@ -1,5 +1,6 @@
 package ru.inurgalimov.habit.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -34,5 +35,9 @@ public class Habit {
 
     @ApiModelProperty(value = "Описание")
     private String description;
+
+    @JsonIgnore
+    @ApiModelProperty(hidden = true)
+    private UUID userId;
 
 }
