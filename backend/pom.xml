@@ -30,6 +30,7 @@
     <modules>
         <module>habit</module>
         <module>auth</module>
+        <module>notification</module>
     </modules>
 
     <dependencyManagement>
