@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  notification:
+    networks:
+      - habit-tracker-backend
+    container_name: notification
+    image: notification
+    build: .
+    ports:
+      - 8083:8083
+networks:
+  habit-tracker-backend:
+    name: habit-tracker-backend
