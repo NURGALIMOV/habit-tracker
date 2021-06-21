@@ -3,7 +3,8 @@ habit:
     delimiter: _
 spring:
   datasource:
-    url: jdbc:postgresql://habit_db:5432/habitdb
+#    url: jdbc:postgresql://habit_db:5432/habitdb
+    url: jdbc:postgresql://localhost:5001/habitdb
     username: habit
     password: habit
   liquibase:

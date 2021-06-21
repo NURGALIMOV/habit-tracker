@@ -1,4 +1,5 @@
-package ru.inurgalimov.notification.dto;
+package ru.inurgalimov.habit.dto;
+
 
 import lombok.*;
 

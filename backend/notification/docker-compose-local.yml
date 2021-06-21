@@ -8,6 +8,14 @@ services:
     build: .
     ports:
       - 8083:8083
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    networks:
+      - habit-tracker-backend
+    ports:
+      - 5672:5672
+      - 15672:15672
 networks:
   habit-tracker-backend:
     name: habit-tracker-backend
