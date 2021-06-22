@@ -3,6 +3,7 @@ package ru.inurgalimov.habit.service.implementation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.inurgalimov.habit.dto.Habit;
+import ru.inurgalimov.habit.dto.HabitResponse;
 import ru.inurgalimov.habit.exception.HabitException;
 import ru.inurgalimov.habit.exception.NotFoundException;
 import ru.inurgalimov.habit.mapper.HabitMapper;
@@ -22,7 +23,7 @@ public class HabitServiceImpl implements HabitService {
     private final HabitMapper mapper;
 
     @Override
-    public List<Habit> getAllHabits(UUID userId) {
+    public List<HabitResponse> getAllHabits(UUID userId) {
         return repository.findAllByUserId(userId)
                 .stream()
                 .map(mapper::toDto)
@@ -30,7 +31,14 @@ public class HabitServiceImpl implements HabitService {
     }
 
     @Override
-    public Habit getHabit(UUID uuid, UUID userId) {
+    public List<HabitResponse> getAllHabits() {
+        return repository.findAll().stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public HabitResponse getHabit(UUID uuid, UUID userId) {
         return repository.findByIdAndUserId(uuid, userId)
                 .map(mapper::toDto)
                 .orElseThrow(NotFoundException::new);

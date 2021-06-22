@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.inurgalimov.habit.api.HabitApi;
 import ru.inurgalimov.habit.dto.Habit;
+import ru.inurgalimov.habit.dto.HabitResponse;
 import ru.inurgalimov.habit.dto.Message;
 import ru.inurgalimov.habit.service.HabitService;
 import ru.inurgalimov.habit.util.HabitUtils;
@@ -23,12 +24,12 @@ public class HabitController implements HabitApi {
     private final RabbitTemplate rabbitTemplate;
 
     @Override
-    public List<Habit> getAll(String profile) {
+    public List<HabitResponse> getAll(String profile) {
         return service.getAllHabits(HabitUtils.getUserId(profile));
     }
 
     @Override
-    public Habit get(UUID habitId, String profile) {
+    public HabitResponse get(UUID habitId, String profile) {
         return service.getHabit(habitId, HabitUtils.getUserId(profile));
     }
 

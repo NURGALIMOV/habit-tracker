@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.inurgalimov.habit.dto.Habit;
+import ru.inurgalimov.habit.dto.HabitResponse;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -21,11 +22,11 @@ public interface HabitApi {
     @ApiOperation(value = "Получение привычек пользователя", nickname = "habits", responseContainer = "List")
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    List<Habit> getAll(@RequestHeader("X-Profile") @Valid @NotNull @NotBlank String profile);
+    List<HabitResponse> getAll(@RequestHeader("X-Profile") @Valid @NotNull @NotBlank String profile);
 
     @ApiOperation(value = "Получение привычки пользователя", nickname = "habit", response = Habit.class)
     @GetMapping(value = "/{habitId}", produces = APPLICATION_JSON_VALUE)
-    Habit get(
+    HabitResponse get(
             @PathVariable @Valid @NotNull UUID habitId,
             @RequestHeader("X-Profile") @Valid @NotNull @NotBlank String profile);
 

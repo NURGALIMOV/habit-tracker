@@ -18,6 +18,10 @@ public interface ProgressMapper {
     @Mapping(target = "habit", ignore = true)
     ProgressEntity toEntity(Progress dto);
 
+    @Named("toEntityWithDate")
+    @Mapping(target = "habit", ignore = true)
+    ProgressEntity toEntityWithDate(Progress dto);
+
     @Named("toEntityWithHabit")
     default ProgressEntity toEntityWithHabit(Progress dto) {
         ProgressEntity entity = toEntity(dto);
