@@ -10,9 +10,7 @@ import ru.inurgalimov.habit.mapper.HabitMapper;
 import ru.inurgalimov.habit.repository.HabitRepository;
 import ru.inurgalimov.habit.service.HabitService;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,6 +45,7 @@ public class HabitServiceImpl implements HabitService {
     @Override
     public UUID createHabit(Habit habit, UUID userId) {
         habit.setUserId(userId);
+        Optional.ofNullable(habit.getNotifies()).ifPresent(notifications -> notifications.forEach(n -> n.setUserId(userId)));
         return repository.save(mapper.toExtendedEntity(habit)).getId();
     }
 
@@ -56,6 +55,7 @@ public class HabitServiceImpl implements HabitService {
             throw new HabitException();
         }
         if (repository.findByIdAndUserId(habit.getId(), userId).isPresent()) {
+            Optional.ofNullable(habit.getNotifies()).ifPresent(notifications -> notifications.forEach(n -> n.setUserId(userId)));
             repository.save(mapper.toExtendedEntity(habit));
             return;
         }

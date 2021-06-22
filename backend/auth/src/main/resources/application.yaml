@@ -4,7 +4,8 @@ jwt:
     hours: 8
 spring:
   datasource:
-    url: jdbc:postgresql://auth_db:5432/authdb
+#    url: jdbc:postgresql://auth_db:5432/authdb
+    url: jdbc:postgresql://localhost:5002/authdb
     username: auth
     password: auth
   liquibase:

@@ -2,6 +2,12 @@ habit:
   property:
     delimiter: _
 spring:
+  cache:
+    type: redis
+    host: localhost
+    port: 6379
+    redis:
+      time-to-live: 3600000
   datasource:
 #    url: jdbc:postgresql://habit_db:5432/habitdb
     url: jdbc:postgresql://localhost:5001/habitdb

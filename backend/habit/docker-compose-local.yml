@@ -22,6 +22,14 @@ services:
       POSTGRES_DB: habitdb
       POSTGRES_USER: habit
       POSTGRES_PASSWORD: habit
+  redis:
+    container_name: redis
+    image: "redis:alpine"
+    networks:
+      - habit-tracker-backend
+    ports:
+      - 6379:6379
+
 networks:
   habit-tracker-backend:
     name: habit-tracker-backend
