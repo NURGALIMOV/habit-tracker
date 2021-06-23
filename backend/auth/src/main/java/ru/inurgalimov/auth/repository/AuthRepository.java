@@ -8,6 +8,6 @@ import java.util.UUID;
 
 public interface AuthRepository extends JpaRepository<UserEntity, UUID> {
 
-    Optional<UserEntity> findOneByLogin(String login);
+    Optional<UserEntity> findOneByLoginIgnoreCase(String login);
 
 }

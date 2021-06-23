@@ -12,6 +12,7 @@ import ru.inurgalimov.auth.dto.Role;
 import ru.inurgalimov.auth.dto.User;
 import ru.inurgalimov.auth.entity.UserEntity;
 import ru.inurgalimov.auth.exception.AuthException;
+import ru.inurgalimov.auth.exception.UserAlreadyExists;
 import ru.inurgalimov.auth.mapper.UserMapper;
 import ru.inurgalimov.auth.repository.AuthRepository;
 import ru.inurgalimov.auth.service.AuthService;
@@ -43,6 +44,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public ResponseEntity<UUID> register(User user) {
+        repository.findOneByLoginIgnoreCase(user.getLogin()).ifPresent(u -> {
+            throw new UserAlreadyExists("This user already exists");
+        });
         user.setLogin(user.getLogin().toLowerCase());
         user.setRole(Role.USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -92,7 +96,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String login(String login, String password) {
-        return repository.findOneByLogin(login.toLowerCase())
+        return repository.findOneByLoginIgnoreCase(login.toLowerCase())
                 .map(mapper::toDto)
                 .filter(user -> passwordEncoder.matches(password, user.getPassword()))
                 .map(jwtTokenProvider::generateToken)
