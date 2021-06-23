@@ -4,12 +4,12 @@ habit:
 spring:
   cache:
     type: redis
-    host: redis
+    host: localhost
     port: 6379
     redis:
       time-to-live: 3600000
   datasource:
-    url: jdbc:postgresql://habit_db:5432/habitdb
+    url: jdbc:postgresql://localhost:5001/habitdb
     username: habit
     password: habit
   liquibase:

@@ -1,0 +1,69 @@
+version: '3.7'
+services:
+  habit:
+    networks:
+      - habit-tracker-backend
+    container_name: habit
+    image: habit
+    build: ./habit
+    depends_on:
+      - habit_db
+      - redis
+  habit_db:
+    container_name: habit-db
+    image: postgres
+    restart: on-failure
+    networks:
+      - habit-tracker-backend
+    environment:
+      POSTGRES_DB: habitdb
+      POSTGRES_USER: habit
+      POSTGRES_PASSWORD: habit
+  redis:
+    container_name: redis
+    image: "redis:alpine"
+    networks:
+      - habit-tracker-backend
+  auth:
+    networks:
+      - habit-tracker-backend
+    container_name: auth
+    image: auth
+    build: ./auth
+    depends_on:
+      - auth_db
+  auth_db:
+    container_name: auth-db
+    image: postgres
+    restart: on-failure
+    networks:
+      - habit-tracker-backend
+    environment:
+      POSTGRES_DB: authdb
+      POSTGRES_USER: auth
+      POSTGRES_PASSWORD: auth
+  gateway:
+    networks:
+      - habit-tracker-backend
+    image: gateway
+    container_name: gateway
+    build: ./gateway
+    ports:
+      - 8080:80
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  notification:
+    networks:
+      - habit-tracker-backend
+    container_name: notification
+    image: notification
+    build: ./notification
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    networks:
+      - habit-tracker-backend
+
+networks:
+  habit-tracker-backend:
+    name: habit-tracker-backend

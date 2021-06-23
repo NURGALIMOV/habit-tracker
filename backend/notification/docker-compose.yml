@@ -6,8 +6,11 @@ services:
     container_name: notification
     image: notification
     build: .
-    ports:
-      - 8083:8083
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    networks:
+      - habit-tracker-backend
 networks:
   habit-tracker-backend:
     name: habit-tracker-backend
