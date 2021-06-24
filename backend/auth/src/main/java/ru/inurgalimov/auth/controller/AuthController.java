@@ -22,7 +22,9 @@ public class AuthController implements AuthApi {
     @Override
     @PreAuthorize("hasRole('ADMIN')")
     public List<User> getAll() {
-        return service.getAll();
+        final var all = service.getAll();
+        all.forEach(user -> user.setPassword(null));
+        return all;
     }
 
     @Override
@@ -33,7 +35,9 @@ public class AuthController implements AuthApi {
     @Override
     @PreAuthorize("hasRole('ADMIN')")
     public User update(User user) {
-        return service.update(user);
+        User result = service.update(user);
+        result.setPassword(null);
+        return result;
     }
 
     @Override
