@@ -41,6 +41,6 @@ public interface AuthApi {
 
     @ApiOperation(value = "Проверка токена", nickname = "validate-token", response = String.class)
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
-    String login(@RequestBody @Valid @NotNull @NotBlank User user);
+    ResponseEntity<User> login(@RequestBody @Valid @NotNull @NotBlank User user);
 
 }

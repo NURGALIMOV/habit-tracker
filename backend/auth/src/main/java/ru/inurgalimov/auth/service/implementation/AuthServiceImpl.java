@@ -18,10 +18,7 @@ import ru.inurgalimov.auth.repository.AuthRepository;
 import ru.inurgalimov.auth.service.AuthService;
 import ru.inurgalimov.auth.service.JwtTokenProvider;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -59,6 +56,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public User update(User user) {
+        if (Objects.isNull(user) || Objects.isNull(user.getId())) {
+            throw new AuthException();
+        }
         user.setLogin(user.getLogin().toLowerCase());
         user.setRole(Role.USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
