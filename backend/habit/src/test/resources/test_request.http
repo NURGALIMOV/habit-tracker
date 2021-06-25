@@ -1,0 +1,169 @@
+###
+//Вход в систему
+POST http://540065-ce05705.tmweb.ru/api/v1/auth
+Content-Type: application/json
+
+{
+  "login": "???",
+  "password": "???"
+}
+
+> {%
+client.global.set("auth", response.body.token)
+ %}
+
+###
+//Получаем заведенные привычки
+GET http://540065-ce05705.tmweb.ru/api/v1/habits
+Authorization: Bearer {{auth}}
+
+###
+// Создание привычки
+POST http://540065-ce05705.tmweb.ru/api/v1/habits
+Content-Type: application/json
+Authorization: Bearer {{auth}}
+
+{
+  "description": "test habit",
+  "isNotify": true,
+  "name": "TEST HABIT",
+  "notifies": [
+    {
+      "email": "???",
+      "notificationTime": "16:00",
+      "notificationType": "EMAIL"
+    }
+  ]
+}
+
+###
+// Обновление привычки
+PUT http://540065-ce05705.tmweb.ru/api/v1/habits
+Content-Type: application/json
+Authorization: Bearer {{auth}}
+
+{
+  "id": "babe1f0f-5461-4441-815d-282b69516b78",
+  "name": "TEST HABIT UPDATE",
+  "isNotify": true,
+  "notifies": [
+    {
+      "id": "2370b54e-3377-414b-beca-456accca2191",
+      "habitId": "babe1f0f-5461-4441-815d-282b69516b78",
+      "notificationType": "EMAIL",
+      "notificationTime": "16:00",
+      "email": "???"
+    }
+  ],
+  "description": "test habit",
+  "isActive": true,
+  "progress": [],
+  "createDate": "25.06.2021"
+}
+
+###
+//Получаем заведенные привычки
+GET http://540065-ce05705.tmweb.ru/api/v1/habits
+Authorization: Bearer {{auth}}
+
+###
+// Получение привычки
+GET http://540065-ce05705.tmweb.ru/api/v1/habits/babe1f0f-5461-4441-815d-282b69516b78
+Authorization: Bearer {{auth}}
+
+###
+// Создание привычки
+POST http://540065-ce05705.tmweb.ru/api/v1/habits
+Content-Type: application/json
+Authorization: Bearer {{auth}}
+
+{
+  "description": "test habit",
+  "isNotify": true,
+  "name": "TEST HABIT",
+  "notifies": [
+    {
+      "email": "???",
+      "notificationTime": "16:00",
+      "notificationType": "EMAIL"
+    }
+  ]
+}
+
+###
+//Получаем заведенные привычки
+GET http://540065-ce05705.tmweb.ru/api/v1/habits
+Authorization: Bearer {{auth}}
+
+###
+DELETE http://540065-ce05705.tmweb.ru/api/v1/habits/693e2c07-2b55-4fb8-b276-10bbf6e7342a
+Authorization: Bearer {{auth}}
+
+###
+//Получаем заведенные привычки
+GET http://540065-ce05705.tmweb.ru/api/v1/habits
+Authorization: Bearer {{auth}}
+
+###
+// Создание уведомления
+POST http://540065-ce05705.tmweb.ru/api/v1/notifications
+Content-Type: application/json
+Authorization: Bearer {{auth}}
+
+{
+  "email": "???",
+  "habitId": "babe1f0f-5461-4441-815d-282b69516b78",
+  "notificationTime": "17:30",
+  "notificationType": "EMAIL"
+}
+
+###
+//Получаем заведенные привычки
+GET http://540065-ce05705.tmweb.ru/api/v1/habits
+Authorization: Bearer {{auth}}
+
+###
+// Обновление уведомления
+PUT http://540065-ce05705.tmweb.ru/api/v1/notifications
+Content-Type: application/json
+Authorization: Bearer {{auth}}
+
+{
+  "id": "db3672bb-20e1-4865-a1ed-aa4cf2e7517b",
+  "email": "???",
+  "habitId": "babe1f0f-5461-4441-815d-282b69516b78",
+  "notificationTime": "17:35",
+  "notificationType": "EMAIL"
+}
+
+###
+//Получаем заведенные привычки
+GET http://540065-ce05705.tmweb.ru/api/v1/habits
+Authorization: Bearer {{auth}}
+
+###
+// Удаляем уведомление
+DELETE http://540065-ce05705.tmweb.ru/api/v1/notifications/db3672bb-20e1-4865-a1ed-aa4cf2e7517b
+Authorization: Bearer {{auth}}
+
+###
+//Получаем заведенные привычки
+GET http://540065-ce05705.tmweb.ru/api/v1/habits
+Authorization: Bearer {{auth}}
+
+###
+// Создание отметки о прогрессе
+POST http://540065-ce05705.tmweb.ru/api/v1/progress
+Content-Type: application/json
+Authorization: Bearer {{auth}}
+
+{
+  "description": "test progres",
+  "habitId": "babe1f0f-5461-4441-815d-282b69516b78",
+  "status": true
+}
+
+###
+//Получаем заведенные привычки
+GET http://540065-ce05705.tmweb.ru/api/v1/habits
+Authorization: Bearer {{auth}}

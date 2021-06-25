@@ -1,0 +1,135 @@
+###
+//регистрация
+POST http://540065-ce05705.tmweb.ru/api/v1/auth/users
+Content-Type: application/json
+
+{
+  "firstName": "Тест",
+  "lastName": "Тестов",
+  "login": "???",
+  "middleName": "Тестович",
+  "password": "???"
+}
+
+###
+//Вход в систему
+POST http://540065-ce05705.tmweb.ru/api/v1/auth
+Content-Type: application/json
+
+{
+  "login": "???",
+  "password": "???"
+}
+
+> {%
+client.global.set("auth", response.body.token)
+ %}
+
+###
+//Проверка токена
+GET http://540065-ce05705.tmweb.ru/api/v1/auth
+Authorization: Bearer {{auth}}
+
+###
+//Получение пользователей
+GET http://540065-ce05705.tmweb.ru/api/v1/auth/users
+Authorization: Bearer {{auth}}
+
+###
+// Пользователю не доступно обновление пользователей
+PUT http://540065-ce05705.tmweb.ru/api/v1/auth/users
+Content-Type: application/json
+Authorization: Bearer {{auth}}
+
+{
+  "id": "65969286-5250-4f52-a4a9-ef82c360c638",
+  "firstName": "ТесТ",
+  "lastName": "Тестов",
+  "login": "???",
+  "middleName": "Тестович",
+  "password": "???"
+}
+
+###
+// Пользователю доступно обновление пароля
+PATCH http://540065-ce05705.tmweb.ru/api/v1/auth/users/092b30cb-75fb-43e4-80ff-3184257f9dd4/password
+Content-Type: application/json
+Authorization: Bearer {{auth}}
+
+"???"
+
+###
+//Вход в систему
+POST http://540065-ce05705.tmweb.ru/api/v1/auth
+Content-Type: application/json
+
+{
+  "login": "???",
+  "password": "???"
+}
+
+> {%
+client.global.set("auth", response.body.token)
+ %}
+
+###
+//Вход в систему под админом
+POST http://540065-ce05705.tmweb.ru/api/v1/auth
+Content-Type: application/json
+
+{
+  "login": "???",
+  "password": "???"
+}
+
+> {%
+client.global.set("auth_admin", response.body.token)
+ %}
+
+###
+// Пользователю доступно обновление пароля
+PATCH http://540065-ce05705.tmweb.ru/api/v1/auth/users/128134c7-c682-48c2-8cd6-1b3ca99af61b/password
+Content-Type: application/json
+Authorization: Bearer {{auth_admin}}
+
+"???"
+
+###
+//Вход в систему под админом
+POST http://540065-ce05705.tmweb.ru/api/v1/auth
+Content-Type: application/json
+
+{
+  "login": "???",
+  "password": "???"
+}
+
+> {%
+client.global.set("auth_admin", response.body.token)
+ %}
+
+###
+//Проверка токена админа
+GET http://540065-ce05705.tmweb.ru/api/v1/auth
+Authorization: Bearer {{auth_admin}}
+
+
+###
+//Получение пользователей
+GET http://540065-ce05705.tmweb.ru/api/v1/auth/users
+Authorization: Bearer {{auth_admin}}
+
+###
+// Обновление пользователя админом
+PUT http://540065-ce05705.tmweb.ru/api/v1/auth/users
+Content-Type: application/json
+Authorization: Bearer {{auth_admin}}
+
+{
+  "id": "4d5ab775-570f-4785-8089-dbac67d97696",
+  "firstName": "ТесТ",
+  "lastName": "Тестов",
+  "middleName": "Тестович",
+  "login": "???",
+  "password": "???"
+}
