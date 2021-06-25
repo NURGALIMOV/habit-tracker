@@ -41,7 +41,7 @@ public class AuthController implements AuthApi {
     }
 
     @Override
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public String changePassword(UUID userId, String password) {
         return service.changePassword(userId, password);
     }
