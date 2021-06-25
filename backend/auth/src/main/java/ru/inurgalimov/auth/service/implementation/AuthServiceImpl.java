@@ -41,13 +41,16 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public ResponseEntity<UUID> register(User user) {
-        repository.findOneByLoginIgnoreCase(user.getLogin()).ifPresent(u -> {
-            throw new UserAlreadyExists("This user already exists");
-        });
-        user.setLogin(user.getLogin().toLowerCase());
+        repository.findOneByLoginIgnoreCase(user.getLogin())
+                .ifPresent(u -> {
+                    throw new UserAlreadyExists("This user already exists");
+                });
+        user.setLogin(user.getLogin()
+                .toLowerCase());
         user.setRole(Role.USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        UUID id = repository.save(mapper.toEntity(user)).getId();
+        UUID id = repository.save(mapper.toEntity(user))
+                .getId();
         user.setId(id);
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.AUTHORIZATION, String.format("Bearer %s", jwtTokenProvider.generateToken(user)));
@@ -59,7 +62,8 @@ public class AuthServiceImpl implements AuthService {
         if (Objects.isNull(user) || Objects.isNull(user.getId())) {
             throw new AuthException();
         }
-        user.setLogin(user.getLogin().toLowerCase());
+        user.setLogin(user.getLogin()
+                .toLowerCase());
         user.setRole(Role.USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         UserEntity entity = mapper.toEntity(user);
@@ -84,12 +88,14 @@ public class AuthServiceImpl implements AuthService {
         if (!token.startsWith(BEARER)) {
             throw new AuthException("Invalid authentication scheme found in Authorization header");
         }
-        token = token.replace(BEARER, "").trim();
+        token = token.replace(BEARER, "")
+                .trim();
         if (StringUtils.isBlank(token)) {
             throw new AuthException("Authorization header token is empty");
         }
         if (jwtTokenProvider.validateToken(token)) {
-            return jwtTokenProvider.parseToken(token).getClaims();
+            return jwtTokenProvider.parseToken(token)
+                    .getClaims();
         }
         throw new AuthException("Incorrect token");
     }
@@ -101,6 +107,13 @@ public class AuthServiceImpl implements AuthService {
                 .filter(user -> passwordEncoder.matches(password, user.getPassword()))
                 .map(jwtTokenProvider::generateToken)
                 .orElseThrow(() -> new AuthException("Failed to log in"));
+    }
+
+    @Override
+    public UUID getIdUser(String login) {
+        return repository.findOneByLoginIgnoreCase(login)
+                .map(UserEntity::getId)
+                .orElse(null);
     }
 
 }

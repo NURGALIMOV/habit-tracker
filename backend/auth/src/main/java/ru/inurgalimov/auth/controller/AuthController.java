@@ -59,6 +59,7 @@ public class AuthController implements AuthApi {
         HttpHeaders headers = new HttpHeaders();
         String token = service.login(user.getLogin(), user.getPassword());
         headers.add(HttpHeaders.AUTHORIZATION, token);
+        user.setId(service.getIdUser(user.getLogin()));
         user.setPassword(null);
         user.setToken(token);
         return ResponseEntity.ok(user);

@@ -21,4 +21,6 @@ public interface AuthService {
 
     String login(String login, String password);
 
+    UUID getIdUser(String login);
+
 }
