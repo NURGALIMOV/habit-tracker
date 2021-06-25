@@ -18,6 +18,8 @@ spring:
           timeout: 15000
           writetimeout: 15000
     protocol: smtp
+  rabbitmq:
+    host: rabbitmq
 email:
   message:
     from: temstest796@gmail.com
