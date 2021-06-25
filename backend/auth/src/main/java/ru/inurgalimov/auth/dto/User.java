@@ -44,4 +44,6 @@ public class User {
     @JsonIgnore
     private Role role;
 
+    private String token;
+
 }

@@ -57,8 +57,10 @@ public class AuthController implements AuthApi {
     @Override
     public ResponseEntity<User> login(User user) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.AUTHORIZATION, service.login(user.getLogin(), user.getPassword()));
+        String token = service.login(user.getLogin(), user.getPassword());
+        headers.add(HttpHeaders.AUTHORIZATION, token);
         user.setPassword(null);
+        user.setToken(token);
         return ResponseEntity.ok(user);
     }
 
