@@ -32,6 +32,7 @@ public class HabitController implements HabitApi {
     }
 
     @Override
+    @CacheEvict(value = {"habit", "habits"}, key = "#profile")
     public UUID create(Habit habit, String profile) {
         return service.createHabit(habit, HabitUtils.getUserId(profile));
     }
